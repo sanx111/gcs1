@@ -1,3 +1,4 @@
-public class Medico {
+public class Medico extends Usuario{
+    
 
 }
