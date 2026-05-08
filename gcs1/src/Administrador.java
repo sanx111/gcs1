@@ -1,11 +1,16 @@
 public class Administrador extends Usuario {
+    private String cracha;
 
-    public Administrador(int id, String nome) {
-        super(id, nome);
+    public Administrador(tipoUsuario tipo, int id, String nome, String cracha) {
+        super(tipo, id, nome);
+        this.cracha = cracha;
     }
 
-    @Override
-    public String getTipo() {
-        return "Administrador";
+    public String getCracha() {
+        return cracha;
+    }
+
+    public void setCracha(String cracha) {
+        this.cracha = cracha;
     }
 }
