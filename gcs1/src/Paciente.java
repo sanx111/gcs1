@@ -1,8 +1,8 @@
 public class Paciente extends Usuario {
-    private String cpf;
+    private String cpf; 
 
-    public Paciente(int id, String nome, String cpf) {
-        super (id, nome);
+    public Paciente(tipoUsuario tipo,int id, String nome, String cpf) {
+        super(tipo, id, nome);
         this.cpf = cpf;
     }
 
@@ -13,10 +13,5 @@ public class Paciente extends Usuario {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    @Override
-    public String getTipo() {
-        return "Paciente";
     }
 }
