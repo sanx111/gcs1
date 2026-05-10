@@ -9,7 +9,6 @@ public class App {
         CatalogoAutorizacoes catalogoAutorizacoes = new CatalogoAutorizacoes();
         Scanner in = new Scanner(System.in);
 
-
         do {
             System.out.println("=== MENU ===");
             System.out.println("[0] Sair");
@@ -37,7 +36,6 @@ public class App {
                     break;
             }
         } while (opcao != 0);
-
     }
 
     public void cadastraUsuario(CatalogoUsuarios catalogoUsuarios) {
@@ -107,7 +105,6 @@ public class App {
         }
     }
 
-
     public void menuAdministrador(CatalogoUsuarios catalogoUsuarios,
                                   CatalogoAutorizacoes catalogoAutorizacoes) {
 
@@ -141,13 +138,10 @@ public class App {
         int numMedicos = catalogoUsuarios.contarMedicos();
         int numPacientes = catalogoUsuarios.contarPacientes();
         int numAutorizacoes = catalogoAutorizacoes.contarAutorizacoes();
-        double percentualRealizados = catalogoAutorizacoes.calcularPercentualRealizados();
 
         System.out.println("=== ESTATISTICAS ===");
         System.out.println("Numero de medicos: " + numMedicos);
         System.out.println("Numero de pacientes: " + numPacientes);
         System.out.println("Numero de autorizacoes emitidas: " + numAutorizacoes);
-        System.out.println("Percentual de autorizacoes com exames realizados: "
-                + String.format("%.2f", percentualRealizados) + "%");
     }
 }
