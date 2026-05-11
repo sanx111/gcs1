@@ -13,6 +13,7 @@ public class App {
             System.out.println("[0] Sair");
             System.out.println("[1] Cadastrar usuario");
             System.out.println("[2] Listar usuarios");
+            System.out.println("[6] Lista autorizao do usuario");
 
             opcao = in.nextInt();
             switch (opcao) {
@@ -23,6 +24,9 @@ public class App {
                     break;
                 case 2:
                     listarUsuarios(usuarios);
+                    break;
+                case 6:
+                    buscaAutorizacaoUsuario(usuarios);
                     break;
                 default:
                     System.out.println("opcao invalida");
@@ -100,13 +104,19 @@ public class App {
     }
 
 
-    public void buscaAutorizacaoUsuario(int id_usuario, ArrayList<Usuario> usuarios){
+
+    //buscar um usuario atraves de seu numero de id e lista seu tipo de autorizacao se encontrado
+    public void buscaAutorizacaoUsuario(ArrayList<Usuario> usuarios){
+        Scanner in = new Scanner(System.in);
+        
+        System.out.println("Digite o id do usuario");
+        int id_usuario = in.nextInt();
+        
         for(Usuario u: usuarios){
             if(id_usuario == u.getId()){
                 System.out.println("O usuario possui autorizacao do tipo: " + u.getTipo());
             }
         }
-
     }
 
 
