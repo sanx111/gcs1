@@ -25,4 +25,13 @@ public class CatalogoAutorizacoes {
         }
         return resultado;
     }
+    public List<AutorizacaoExame> listarPorExame(Exame exame) {
+        List<AutorizacaoExame> resultado = new ArrayList<>();
+        for (AutorizacaoExame a : autorizacoes) {
+            if (a.getExame() == exame) {
+                resultado.add(a);
+            }
+        }
+        return resultado;
+    }
 }
