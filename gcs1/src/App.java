@@ -102,7 +102,9 @@ public class App {
 
     public void buscaAutorizacaoUsuario(int id_usuario, ArrayList<Usuario> usuarios){
         for(Usuario u: usuarios){
-
+            if(id_usuario == u.getId()){
+                System.out.println("O usuario possui autorizacao do tipo: " + u.getTipo());
+            }
         }
 
     }
