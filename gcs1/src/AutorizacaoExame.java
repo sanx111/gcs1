@@ -10,6 +10,7 @@ public class AutorizacaoExame {
     private Paciente paciente;
     private Exame exame;
     private LocalDate dataRealizacao;
+    private boolean realizado;
 
     public AutorizacaoExame(Medico medico, Paciente paciente, Exame exame) {
         this.codigo = proximoCodigo;
@@ -20,6 +21,8 @@ public class AutorizacaoExame {
         this.paciente = paciente;
         this.exame = exame;
         this.dataRealizacao = null;
+        this.realizado = false;
+
     }
 
     public int getCodigo() {
@@ -63,6 +66,12 @@ public class AutorizacaoExame {
         return dataRealizacao != null;
     }
 
+    public void marcarComoRealizado(){
+        this.realizado=true;
+
+    }
+
+    
     //Representação em texto
     @Override
     public String toString() {
