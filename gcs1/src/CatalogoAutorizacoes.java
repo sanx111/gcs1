@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,14 @@ public class CatalogoAutorizacoes {
         List<AutorizacaoExame> resultado = new ArrayList<>();
         for (AutorizacaoExame a : autorizacoes) {
             if (a.getExame() == exame) {
+                resultado.add(a);
+            }
+        }
+        return resultado;
+    }public List<AutorizacaoExame> listarPorData(LocalDate data) {
+        List<AutorizacaoExame> resultado = new ArrayList<>();
+        for (AutorizacaoExame a : autorizacoes) {
+            if (a.getDataCadastro().equals(data)) {
                 resultado.add(a);
             }
         }
