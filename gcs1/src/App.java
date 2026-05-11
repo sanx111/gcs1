@@ -98,4 +98,14 @@ public class App {
             }
         }
     }
+
+
+    public void buscaAutorizacaoUsuario(int id_usuario, ArrayList<Usuario> usuarios){
+        for(Usuario u: usuarios){
+
+        }
+
+    }
+
+
 }
