@@ -14,4 +14,5 @@ public class Paciente extends Usuario {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
 }

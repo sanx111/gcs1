@@ -73,6 +73,7 @@ public class AutorizacaoExame {
                 ", paciente=" + paciente.getNome() +
                 ", exame=" + exame +
                 ", dataRealizacao=" + dataRealizacao +
+                
                 '}';
     }
 }

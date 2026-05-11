@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class App {
@@ -8,12 +9,14 @@ public class App {
         int opcao;
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
         Scanner in = new Scanner(System.in);
+        CatalogoAutorizacoes cat = new CatalogoAutorizacoes();
 
         do {
             System.out.println("[0] Sair");
             System.out.println("[1] Cadastrar usuario");
             System.out.println("[2] Listar usuarios");
-
+            System.out.println("[3] marcar Exame como realizado");
+            System.out.println("[4] listar exames do paciente");
             opcao = in.nextInt();
             switch (opcao) {
                 case 0:
@@ -23,6 +26,13 @@ public class App {
                     break;
                 case 2:
                     listarUsuarios(usuarios);
+                    break;
+                case 3:
+                    listarExamesPaciente(cat, in);
+                    break;
+
+                case 4:
+                    marcarExame(cat, in);
                     break;
                 default:
                     System.out.println("opcao invalida");
@@ -98,4 +108,30 @@ public class App {
             }
         }
     }
+
+    public void marcarExame(CatalogoAutorizacoes cat, Scanner in) {
+
+        System.out.println("Codigo do exame:");
+        int codigo = in.nextInt();
+
+        System.out.println("Data (yyyy-mm-dd):");
+        String data = in.next();
+
+        cat.marcarExame(codigo, LocalDate.parse(data));
+
+    }
+
+    public void listarExamesPaciente(CatalogoAutorizacoes cat, Scanner in) {
+
+        in.nextLine();
+        System.out.println("Nome do paciente:");
+        String nome = in.nextLine();
+
+        for (AutorizacaoExame a : cat.getListaAutorizacoes()) {
+            if (a.getPaciente().getNome().equalsIgnoreCase(nome)) {
+                System.out.println(a);
+            }
+        }
+    }
+
 }
