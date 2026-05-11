@@ -26,7 +26,9 @@ public class CatalogoAutorizacoes {
             }
         }
         return resultado;
-    }public List<AutorizacaoExame> listarPorData(LocalDate data) {
+    }
+
+    public List<AutorizacaoExame> listarPorData(LocalDate data) {
         List<AutorizacaoExame> resultado = new ArrayList<>();
         for (AutorizacaoExame a : autorizacoes) {
             if (a.getDataCadastro().equals(data)) {
@@ -36,4 +38,13 @@ public class CatalogoAutorizacoes {
         return resultado;
     }
 
+    public List<AutorizacaoExame> listarRealizados() {
+        List<AutorizacaoExame> resultado = new ArrayList<>();
+        for (AutorizacaoExame a : autorizacoes) {
+            if (a.isRealizado()) {
+                resultado.add(a);
+            }
+        }
+        return resultado;
+    }
 }
