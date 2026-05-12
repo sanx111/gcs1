@@ -144,4 +144,35 @@ public class App {
         System.out.println("Numero de pacientes: " + numPacientes);
         System.out.println("Numero de autorizacoes emitidas: " + numAutorizacoes);
     }
+
+    public void criarAutorizacao() {
+        System.out.println("ID do Medico:");
+        int idMed = in.nextInt();
+        Medico medico = (Medico) buscarUsuarioPorId(idMed, tipoUsuario.MEDICO);
+
+        System.out.println("ID do Paciente:");
+        int idPac = in.nextInt();
+        Paciente paciente = (Paciente) buscarUsuarioPorId(idPac, tipoUsuario.PACIENTE);
+
+        if (medico == null || paciente == null) {
+            System.out.println("Erro: Medico ou Paciente nao encontrados.");
+            return;
+        }
+
+        System.out.println("Escolha o Exame:");
+        Exame[] examesDisponiveis = Exame.values();
+        for (int i = 0; i < examesDisponiveis.length; i++) {
+            System.out.println("[" + i + "] " + examesDisponiveis[i]);
+        }
+        int escolha = in.nextInt();
+        
+        if (escolha >= 0 && escolha < examesDisponiveis.length) {
+            Exame exameEscolhido = examesDisponiveis[escolha];
+            AutorizacaoExame nova = new AutorizacaoExame(medico, paciente, exameEscolhido);
+            catalogo.adicionar(nova);
+            System.out.println("Autorizacao gerada! Codigo: " + nova.getCodigo());
+        } else {
+            System.out.println("Exame invalido.");
+        }
+    }
 }
