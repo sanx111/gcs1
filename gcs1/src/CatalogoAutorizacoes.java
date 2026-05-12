@@ -1,3 +1,4 @@
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,5 +75,17 @@ public class CatalogoAutorizacoes {
         return resultado;
 
         }
+            public boolean marcarExameComoRealizado(int codigo){
+        for(AutorizacaoExame exame: listaAutorizacoes){
+            if(exame.getCodigo()==codigo){
+                exame.marcaComoRealizado();
+                return true;
+            }
+        }
+
+        return false;
+
+    }
     
 }
+
