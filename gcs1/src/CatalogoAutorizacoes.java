@@ -3,20 +3,34 @@ import java.util.List;
 
 public class CatalogoAutorizacoes {
 
-    private List<AutorizacaoExame> autorizacoes;
+    private ArrayList<AutorizacaoExame> autorizacoes = new ArrayList<AutorizacaoExame>();
 
-    public CatalogoAutorizacoes() {
-        this.autorizacoes = new ArrayList<>();
+    public void adicionarAutorizacao(AutorizacaoExame a) {
+        autorizacoes.add(a);
     }
 
-    public void adicionarAutorizacao(AutorizacaoExame autorizacao) {
-        autorizacoes.add(autorizacao);
-    }
-
-    public List<AutorizacaoExame> getAutorizacoes() {
+    public ArrayList<AutorizacaoExame> getAutorizacoes() {
         return autorizacoes;
     }
-    public List<AutorizacaoExame> listarPorPaciente(Paciente paciente) {
+
+    public int contarAutorizacoes() {
+        return autorizacoes.size();
+    }
+
+    public double calcularPercentualRealizados() {
+        if (autorizacoes.isEmpty()) {
+            return 0.0;
+        }
+        int realizados = 0;
+        for (AutorizacaoExame a : autorizacoes) {
+            if (a.isRealizado()) { 
+                realizados++;
+            }
+        }
+        return (realizados * 100.0) / autorizacoes.size();
+
+    }
+        public List<AutorizacaoExame> listarPorPaciente(Paciente paciente) {
         List<AutorizacaoExame> resultado = new ArrayList<>();
         for (AutorizacaoExame a : autorizacoes) {
             if (a.getPaciente().getId() == paciente.getId()) {
@@ -33,5 +47,7 @@ public class CatalogoAutorizacoes {
             }
         }
         return resultado;
-    }
+
+        }
+    
 }
