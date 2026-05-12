@@ -55,9 +55,24 @@ public class CatalogoAutorizacoes {
         List<AutorizacaoExame> resultado = new ArrayList<>();
         for (AutorizacaoExame a : autorizacoes) {
             if (a.isRealizado()) {
+        public List<AutorizacaoExame> listarPorPaciente(Paciente paciente) {
+        List<AutorizacaoExame> resultado = new ArrayList<>();
+        for (AutorizacaoExame a : autorizacoes) {
+            if (a.getPaciente().getId() == paciente.getId()) {
                 resultado.add(a);
             }
         }
         return resultado;
     }
+    public List<AutorizacaoExame> listarPorExame(Exame exame) {
+        List<AutorizacaoExame> resultado = new ArrayList<>();
+        for (AutorizacaoExame a : autorizacoes) {
+            if (a.getExame() == exame) {
+                resultado.add(a);
+            }
+        }
+        return resultado;
+
+        }
+    
 }
