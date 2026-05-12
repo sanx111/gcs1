@@ -15,6 +15,8 @@ public class App {
             System.out.println("[1] Cadastrar usuario");
             System.out.println("[2] Listar usuarios");
             System.out.println("[3] Menu do administrador");
+            System.out.println("[4] Criar Autorização (Médico)");
+            System.out.println("[5] Validar/Realizar Exame");
             System.out.print("Opcao: ");
 
             opcao = in.nextInt();
@@ -30,6 +32,12 @@ public class App {
                     break;
                 case 3:
                     menuAdministrador(catalogoUsuarios, catalogoAutorizacoes);
+                    break;
+                case 4: 
+                    criarAutorizacao(); 
+                    break;
+                case 5: 
+                    validarAutorizacao(); 
                     break;
                 default:
                     System.out.println("Opcao invalida");
@@ -174,6 +182,26 @@ public class App {
         } else {
             System.out.println("Exame invalido.");
         }
+    }
+    public void validarAutorizacao() {
+        System.out.println("Digite o codigo da autorizacao:");
+        int codigo = in.nextInt();
+
+        AutorizacaoExame aut = catalogo.buscarPorCodigo(codigo);
+        if (aut == null) {
+            System.out.println("Autorizacao inexistente.");
+            return;
+        }
+
+        System.out.println("Data do exame - Dia:");
+        int dia = in.nextInt();
+        System.out.println("Mes:");
+        int mes = in.nextInt();
+        System.out.println("Ano:");
+        int ano = in.nextInt();
+
+        LocalDate dataRealizacao = LocalDate.of(ano, mes, dia);
+        aut.realizarExame(dataRealizacao); 
     }
 
     private Usuario buscarUsuarioPorId(int id, tipoUsuario tipo) {
