@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class CatalogoAutorizacoes {
 
@@ -27,5 +28,26 @@ public class CatalogoAutorizacoes {
             }
         }
         return (realizados * 100.0) / autorizacoes.size();
+
     }
+        public List<AutorizacaoExame> listarPorPaciente(Paciente paciente) {
+        List<AutorizacaoExame> resultado = new ArrayList<>();
+        for (AutorizacaoExame a : autorizacoes) {
+            if (a.getPaciente().getId() == paciente.getId()) {
+                resultado.add(a);
+            }
+        }
+        return resultado;
+    }
+    public List<AutorizacaoExame> listarPorExame(Exame exame) {
+        List<AutorizacaoExame> resultado = new ArrayList<>();
+        for (AutorizacaoExame a : autorizacoes) {
+            if (a.getExame() == exame) {
+                resultado.add(a);
+            }
+        }
+        return resultado;
+
+        }
+    
 }
