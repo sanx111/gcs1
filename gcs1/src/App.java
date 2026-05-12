@@ -13,7 +13,7 @@ public class App {
             System.out.println("[0] Sair");
             System.out.println("[1] Cadastrar usuario");
             System.out.println("[2] Listar usuarios");
-            System.out.println("[6] Lista autorizao do usuario");
+            System.out.println("[6] Autorizao de usuarios");
 
             opcao = in.nextInt();
             switch (opcao) {
@@ -145,6 +145,7 @@ public class App {
         }
     }
 
+    //lista todos os usuarios cadastrados a partir de um tipo de usuario selecionado
     public void listaUsuarioByAutorizacao(ArrayList<Usuario> usuarios){
         Scanner in = new Scanner(System.in);
         
