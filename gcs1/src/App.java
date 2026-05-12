@@ -175,4 +175,14 @@ public class App {
             System.out.println("Exame invalido.");
         }
     }
+
+    private Usuario buscarUsuarioPorId(int id, tipoUsuario tipo) {
+        for (int i = 0; i < usuarios.size(); i++) {
+            Usuario u = usuarios.get(i);
+            if (u.getId() == id && u.getTipo() == tipo) {
+                return u;
+            }
+        }
+        return null;
+    }
 }
