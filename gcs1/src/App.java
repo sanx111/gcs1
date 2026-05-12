@@ -122,7 +122,7 @@ public class App {
                 buscaAutorizacaoUsuario(usuarios);
                 break;
             case 2:
-                
+                listaUsuarioByAutorizacao(usuarios);
                 break;
             default:
                 System.out.println("Entrada invalida");
@@ -143,6 +143,43 @@ public class App {
                 System.out.println("O usuario possui autorizacao do tipo: " + u.getTipo());
             }
         }
+    }
+
+    public void listaUsuarioByAutorizacao(ArrayList<Usuario> usuarios){
+        Scanner in = new Scanner(System.in);
+        
+        System.out.println("Selecione o tipo de autorizacao");
+        System.out.println("[0] Sair");
+        System.out.println("[1] Paciente");
+        System.out.println("[2] Medico");
+        System.out.println("[3] Administrador");
+        int opcao = in.nextInt();
+        in.nextLine();
+        tipoUsuario tipoAutorizacao = null;
+
+        switch(opcao){
+            case 0:
+                break;
+            case 1:
+                tipoAutorizacao = tipoUsuario.PACIENTE;
+                break;
+            case 2:
+                tipoAutorizacao = tipoUsuario.MEDICO;
+                break;
+            case 3:
+                tipoAutorizacao = tipoUsuario.ADMINISTRADOR;
+                break;
+            default:
+                System.out.println("Opcao invalida");
+                break;
+        }
+        
+        for(Usuario u: usuarios){
+            if(tipoAutorizacao == u.getTipo()){
+                System.out.println(u.getNome() + ", ID: " + u.getId() + ", tipo: " + u.getTipo());
+            }
+        }
+    
     }
 
 
