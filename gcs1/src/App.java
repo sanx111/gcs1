@@ -26,7 +26,7 @@ public class App {
                     listarUsuarios(usuarios);
                     break;
                 case 6:
-                    buscaAutorizacaoUsuario(usuarios);
+                    menu_AutorizacaoUsuario(usuarios);
                     break;
                 default:
                     System.out.println("opcao invalida");
@@ -103,6 +103,32 @@ public class App {
         }
     }
 
+
+    public void menu_AutorizacaoUsuario(ArrayList<Usuario> usuarios){
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Selecione o tipo de consulta:");
+        System.out.println("[0] Sair");
+        System.out.println("[1] Busca o tipo de autorizacao de um usuario especifico");
+        System.out.println("[2] Lista todos os usuarios com o mesmo tipo de autorizacao");
+
+        int opcao = in.nextInt();
+        in.nextLine();
+
+        switch (opcao) {
+            case 0:
+                break;
+            case 1:
+                buscaAutorizacaoUsuario(usuarios);
+                break;
+            case 2:
+                
+                break;
+            default:
+                System.out.println("Entrada invalida");
+                break;
+        }
+    }
 
 
     //buscar um usuario atraves de seu numero de id e lista seu tipo de autorizacao se encontrado
