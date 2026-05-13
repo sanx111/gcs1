@@ -14,6 +14,9 @@ public class CatalogoAutorizacoes {
     public ArrayList<AutorizacaoExame> getAutorizacoes() {
         return autorizacoes;
     }
+    public ArrayList<AutorizacaoExame> getListaAutorizacoes() {
+    return autorizacoes;
+    }
 
     public int contarAutorizacoes() {
         return autorizacoes.size();
@@ -56,10 +59,6 @@ public class CatalogoAutorizacoes {
         List<AutorizacaoExame> resultado = new ArrayList<>();
         for (AutorizacaoExame a : autorizacoes) {
             if (a.isRealizado()) {
-        public List<AutorizacaoExame> listarPorPaciente(Paciente paciente) {
-        List<AutorizacaoExame> resultado = new ArrayList<>();
-        for (AutorizacaoExame a : autorizacoes) {
-            if (a.getPaciente().getId() == paciente.getId()) {
                 resultado.add(a);
             }
         }
@@ -85,6 +84,12 @@ public class CatalogoAutorizacoes {
         }
         return null;
     }
+    public void marcarExame(int codigo, LocalDate data) {
+    AutorizacaoExame aut = buscarPorCodigo(codigo);
+    if (aut != null) {
+        aut.realizarExame(data);
+    }
+}
 
 }
     

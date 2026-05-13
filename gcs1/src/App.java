@@ -1,9 +1,14 @@
 import java.util.Scanner;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class App {
+
+    private CatalogoUsuarios catalogoUsuarios;
+    private CatalogoAutorizacoes catalogoAutorizacoes;
+    private ArrayList<Usuario> usuarios;
+    private CatalogoAutorizacoes catalogo;
+    private Scanner in;
 
     public void executar() {
 
@@ -12,18 +17,22 @@ public class App {
         CatalogoAutorizacoes catalogoAutorizacoes = new CatalogoAutorizacoes();
         Scanner in = new Scanner(System.in);
         CatalogoAutorizacoes cat = new CatalogoAutorizacoes();
+        this.in = new Scanner(System.in);
+        this.catalogo = new CatalogoAutorizacoes();
+        this.usuarios = new ArrayList<>();
 
         do {
             System.out.println("=== MENU ===");
             System.out.println("[0] Sair");
             System.out.println("[1] Cadastrar usuario");
-            System.out.println("[2] Listar usuarios");           
-            System.out.println("[3] marcar Exame como realizado");
-            System.out.println("[4] listar exames do paciente");
+            System.out.println("[2] Listar usuarios");
+            System.out.println("[3] Listar exames do paciente");
+            System.out.println("[4] Marcar exame");
             System.out.println("[5] Menu do administrador");
-            System.out.println("[6] Autorizao de usuarios");
-            System.out.println("[7] Criar Autorização (Médico)");
-            System.out.println("[8] Validar/Realizar Exame");
+            System.out.println("[6] Autorizacao de usuarios");
+            System.out.println("[7] Criar autorizacao (Medico)");
+            System.out.println("[8] Validar/Realizar exame");
+            System.out.println("[0] Terminar programa");
             System.out.print("Opcao: ");
 
             opcao = in.nextInt();
@@ -44,18 +53,17 @@ public class App {
                     marcarExame(cat, in);
                     break;
                 case 5:
-                        menuAdministrador(catalogoUsuarios, catalogoAutorizacoes);
-                        break;
+                    menuAdministrador(catalogoUsuarios, catalogoAutorizacoes);
+                    break;
                 case 6:
                     menu_AutorizacaoUsuario(usuarios);
                     break;
-                case 7: 
-                    criarAutorizacao(); 
+                case 7:
+                    criarAutorizacao();
                     break;
-                case 8: 
-                    validarAutorizacao(); 
+                case 8:
+                    validarAutorizacao();
                     break;
-
                 default:
                     System.out.println("Opcao invalida");
                     break;
@@ -118,20 +126,19 @@ public class App {
                 System.out.println("Tipo: " + u.getTipo());
                 System.out.println("Nome: " + u.getNome());
                 System.out.println("id: " + u.getId());
-                Medico m = (Medico) u;
-                System.out.println("crm: " + m.getCrm());
+                Medico med = (Medico) u;
+                System.out.println("crm: " + med.getCrm());
             } else if (u.getTipo() == tipoUsuario.ADMINISTRADOR) {
                 System.out.println("Tipo: " + u.getTipo());
                 System.out.println("Nome: " + u.getNome());
                 System.out.println("id: " + u.getId());
-                Administrador a = (Administrador) u;
-                System.out.println("Cracha: " + a.getCracha());
+                Administrador adm = (Administrador) u;
+                System.out.println("Cracha: " + adm.getCracha());
             }
         }
     }
 
-
-    public void menu_AutorizacaoUsuario(ArrayList<Usuario> usuarios){
+    public void menu_AutorizacaoUsuario(ArrayList<Usuario> usuarios) {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Selecione o tipo de consulta:");
@@ -157,25 +164,22 @@ public class App {
         }
     }
 
-
-    //buscar um usuario atraves de seu numero de id e lista seu tipo de autorizacao se encontrado
-    public void buscaAutorizacaoUsuario(ArrayList<Usuario> usuarios){
+    public void buscaAutorizacaoUsuario(ArrayList<Usuario> usuarios) {
         Scanner in = new Scanner(System.in);
-        
+
         System.out.println("Digite o id do usuario");
         int id_usuario = in.nextInt();
-        
-        for(Usuario u: usuarios){
-            if(id_usuario == u.getId()){
+
+        for (Usuario u : usuarios) {
+            if (id_usuario == u.getId()) {
                 System.out.println("O usuario possui autorizacao do tipo: " + u.getTipo());
             }
         }
     }
 
-    //lista todos os usuarios cadastrados a partir de um tipo de usuario selecionado
-    public void listaUsuarioByAutorizacao(ArrayList<Usuario> usuarios){
+    public void listaUsuarioByAutorizacao(ArrayList<Usuario> usuarios) {
         Scanner in = new Scanner(System.in);
-        
+
         System.out.println("Selecione o tipo de autorizacao");
         System.out.println("[0] Sair");
         System.out.println("[1] Paciente");
@@ -185,7 +189,7 @@ public class App {
         in.nextLine();
         tipoUsuario tipoAutorizacao = null;
 
-        switch(opcao){
+        switch (opcao) {
             case 0:
                 break;
             case 1:
@@ -201,18 +205,15 @@ public class App {
                 System.out.println("Opcao invalida");
                 break;
         }
-        
-        for(Usuario u: usuarios){
-            if(tipoAutorizacao == u.getTipo()){
+
+        for (Usuario u : usuarios) {
+            if (tipoAutorizacao == u.getTipo()) {
                 System.out.println(u.getNome() + ", ID: " + u.getId() + ", tipo: " + u.getTipo());
             }
         }
-    
     }
 
-
     public void marcarExame(CatalogoAutorizacoes cat, Scanner in) {
-
         System.out.println("Codigo do exame:");
         int codigo = in.nextInt();
 
@@ -220,11 +221,9 @@ public class App {
         String data = in.next();
 
         cat.marcarExame(codigo, LocalDate.parse(data));
-
     }
 
     public void listarExamesPaciente(CatalogoAutorizacoes cat, Scanner in) {
-
         in.nextLine();
         System.out.println("Nome do paciente:");
         String nome = in.nextLine();
@@ -236,10 +235,8 @@ public class App {
         }
     }
 
-}
     public void menuAdministrador(CatalogoUsuarios catalogoUsuarios,
                                   CatalogoAutorizacoes catalogoAutorizacoes) {
-
         Scanner in = new Scanner(System.in);
         int opcao;
 
@@ -260,13 +257,11 @@ public class App {
                     System.out.println("Opcao invalida");
                     break;
             }
-
         } while (opcao != 0);
     }
 
     public void mostrarEstatisticasGerais(CatalogoUsuarios catalogoUsuarios,
                                           CatalogoAutorizacoes catalogoAutorizacoes) {
-
         int numMedicos = catalogoUsuarios.contarMedicos();
         int numPacientes = catalogoUsuarios.contarPacientes();
         int numAutorizacoes = catalogoAutorizacoes.contarAutorizacoes();
@@ -297,16 +292,17 @@ public class App {
             System.out.println("[" + i + "] " + examesDisponiveis[i]);
         }
         int escolha = in.nextInt();
-        
+
         if (escolha >= 0 && escolha < examesDisponiveis.length) {
             Exame exameEscolhido = examesDisponiveis[escolha];
             AutorizacaoExame nova = new AutorizacaoExame(medico, paciente, exameEscolhido);
-            catalogo.adicionar(nova);
+            catalogo.adicionarAutorizacao(nova);
             System.out.println("Autorizacao gerada! Codigo: " + nova.getCodigo());
         } else {
             System.out.println("Exame invalido.");
         }
     }
+
     public void validarAutorizacao() {
         System.out.println("Digite o codigo da autorizacao:");
         int codigo = in.nextInt();
@@ -325,7 +321,7 @@ public class App {
         int ano = in.nextInt();
 
         LocalDate dataRealizacao = LocalDate.of(ano, mes, dia);
-        aut.realizarExame(dataRealizacao); 
+        aut.realizarExame(dataRealizacao);
     }
 
     private Usuario buscarUsuarioPorId(int id, tipoUsuario tipo) {
@@ -337,4 +333,5 @@ public class App {
         }
         return null;
     }
+
 }
