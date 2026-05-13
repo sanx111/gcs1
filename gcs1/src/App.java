@@ -21,7 +21,9 @@ public class App {
             System.out.println("[3] marcar Exame como realizado");
             System.out.println("[4] listar exames do paciente");
             System.out.println("[5] Menu do administrador");
-           System.out.println("[6] Autorizao de usuarios");
+            System.out.println("[6] Autorizao de usuarios");
+            System.out.println("[7] Criar Autorização (Médico)");
+            System.out.println("[8] Validar/Realizar Exame");
             System.out.print("Opcao: ");
 
             opcao = in.nextInt();
@@ -47,7 +49,13 @@ public class App {
                 case 6:
                     menu_AutorizacaoUsuario(usuarios);
                     break;
-                        
+                case 7: 
+                    criarAutorizacao(); 
+                    break;
+                case 8: 
+                    validarAutorizacao(); 
+                    break;
+
                 default:
                     System.out.println("Opcao invalida");
                     break;
@@ -267,5 +275,66 @@ public class App {
         System.out.println("Numero de medicos: " + numMedicos);
         System.out.println("Numero de pacientes: " + numPacientes);
         System.out.println("Numero de autorizacoes emitidas: " + numAutorizacoes);
+    }
+
+    public void criarAutorizacao() {
+        System.out.println("ID do Medico:");
+        int idMed = in.nextInt();
+        Medico medico = (Medico) buscarUsuarioPorId(idMed, tipoUsuario.MEDICO);
+
+        System.out.println("ID do Paciente:");
+        int idPac = in.nextInt();
+        Paciente paciente = (Paciente) buscarUsuarioPorId(idPac, tipoUsuario.PACIENTE);
+
+        if (medico == null || paciente == null) {
+            System.out.println("Erro: Medico ou Paciente nao encontrados.");
+            return;
+        }
+
+        System.out.println("Escolha o Exame:");
+        Exame[] examesDisponiveis = Exame.values();
+        for (int i = 0; i < examesDisponiveis.length; i++) {
+            System.out.println("[" + i + "] " + examesDisponiveis[i]);
+        }
+        int escolha = in.nextInt();
+        
+        if (escolha >= 0 && escolha < examesDisponiveis.length) {
+            Exame exameEscolhido = examesDisponiveis[escolha];
+            AutorizacaoExame nova = new AutorizacaoExame(medico, paciente, exameEscolhido);
+            catalogo.adicionar(nova);
+            System.out.println("Autorizacao gerada! Codigo: " + nova.getCodigo());
+        } else {
+            System.out.println("Exame invalido.");
+        }
+    }
+    public void validarAutorizacao() {
+        System.out.println("Digite o codigo da autorizacao:");
+        int codigo = in.nextInt();
+
+        AutorizacaoExame aut = catalogo.buscarPorCodigo(codigo);
+        if (aut == null) {
+            System.out.println("Autorizacao inexistente.");
+            return;
+        }
+
+        System.out.println("Data do exame - Dia:");
+        int dia = in.nextInt();
+        System.out.println("Mes:");
+        int mes = in.nextInt();
+        System.out.println("Ano:");
+        int ano = in.nextInt();
+
+        LocalDate dataRealizacao = LocalDate.of(ano, mes, dia);
+        aut.realizarExame(dataRealizacao); 
+    }
+
+    private Usuario buscarUsuarioPorId(int id, tipoUsuario tipo) {
+        for (int i = 0; i < usuarios.size(); i++) {
+            Usuario u = usuarios.get(i);
+            if (u.getId() == id && u.getTipo() == tipo) {
+                return u;
+            }
+        }
+        return null;
     }
 }

@@ -77,7 +77,16 @@ public class CatalogoAutorizacoes {
 
         return resultado;
     }
+    public AutorizacaoExame buscarPorCodigo(int codigo) {
+        for (int i = 0; i < autorizacoes.size(); i++) {
+            if (autorizacoes.get(i).getCodigo() == codigo) {
+                return autorizacoes.get(i);
+            }
+        }
+        return null;
+    }
 
-    
 }
+    
+
 
