@@ -10,6 +10,7 @@ public class AutorizacaoExame {
     private Paciente paciente;
     private Exame exame;
     private LocalDate dataRealizacao;
+    private boolean realizado;
 
     public AutorizacaoExame(Medico medico, Paciente paciente, Exame exame) {
         this.codigo = proximoCodigo;
@@ -61,6 +62,9 @@ public class AutorizacaoExame {
     //Verifica se já foi realizado
     public boolean isRealizado() {
         return dataRealizacao != null;
+    }
+    public void marcaComoRealizado(){
+        this.realizado=true;
     }
 
     //Representação em texto
