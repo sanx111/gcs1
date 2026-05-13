@@ -1,4 +1,6 @@
 
+
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,8 +92,25 @@ public class CatalogoAutorizacoes {
         aut.realizarExame(data);
     }
 }
+  
+    public void listarPorPeriodo(LocalDate inicio, LocalDate fim) {
+        boolean encontrou = false;
+        for (AutorizacaoExame a : autorizacoes) {
+            // Verifica se a data de cadastro está entre o intervalo
+            if ((a.getDataCadastro().isAfter(inicio) || a.getDataCadastro().isEqual(inicio)) &&
+                (a.getDataCadastro().isBefore(fim) || a.getDataCadastro().isEqual(fim))) {
+                System.out.println(a);
+                encontrou = true;
+            }
+        }
+        if (!encontrou) {
+            System.out.println("Nenhuma autorização encontrada no período.");
+        }
+    }
+
 
 }
     
+
 
 
