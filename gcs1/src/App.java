@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class App {
 
     public void executar() {
@@ -8,15 +11,19 @@ public class App {
         CatalogoUsuarios catalogoUsuarios = new CatalogoUsuarios();
         CatalogoAutorizacoes catalogoAutorizacoes = new CatalogoAutorizacoes();
         Scanner in = new Scanner(System.in);
+        CatalogoAutorizacoes cat = new CatalogoAutorizacoes();
 
         do {
             System.out.println("=== MENU ===");
             System.out.println("[0] Sair");
             System.out.println("[1] Cadastrar usuario");
-            System.out.println("[2] Listar usuarios");
-            System.out.println("[3] Menu do administrador");
-            System.out.println("[4] Criar Autorização (Médico)");
-            System.out.println("[5] Validar/Realizar Exame");
+            System.out.println("[2] Listar usuarios");           
+            System.out.println("[3] marcar Exame como realizado");
+            System.out.println("[4] listar exames do paciente");
+            System.out.println("[5] Menu do administrador");
+            System.out.println("[6] Autorizao de usuarios");
+            System.out.println("[7] Criar Autorização (Médico)");
+            System.out.println("[8] Validar/Realizar Exame");
             System.out.print("Opcao: ");
 
             opcao = in.nextInt();
@@ -31,14 +38,24 @@ public class App {
                     listarUsuarios(catalogoUsuarios);
                     break;
                 case 3:
-                    menuAdministrador(catalogoUsuarios, catalogoAutorizacoes);
+                    listarExamesPaciente(cat, in);
                     break;
-                case 4: 
+                case 4:
+                    marcarExame(cat, in);
+                    break;
+                case 5:
+                        menuAdministrador(catalogoUsuarios, catalogoAutorizacoes);
+                        break;
+                case 6:
+                    menu_AutorizacaoUsuario(usuarios);
+                    break;
+                case 7: 
                     criarAutorizacao(); 
                     break;
-                case 5: 
+                case 8: 
                     validarAutorizacao(); 
                     break;
+
                 default:
                     System.out.println("Opcao invalida");
                     break;
@@ -113,6 +130,113 @@ public class App {
         }
     }
 
+
+    public void menu_AutorizacaoUsuario(ArrayList<Usuario> usuarios){
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Selecione o tipo de consulta:");
+        System.out.println("[0] Sair");
+        System.out.println("[1] Busca o tipo de autorizacao de um usuario especifico");
+        System.out.println("[2] Lista todos os usuarios com o mesmo tipo de autorizacao");
+
+        int opcao = in.nextInt();
+        in.nextLine();
+
+        switch (opcao) {
+            case 0:
+                break;
+            case 1:
+                buscaAutorizacaoUsuario(usuarios);
+                break;
+            case 2:
+                listaUsuarioByAutorizacao(usuarios);
+                break;
+            default:
+                System.out.println("Entrada invalida");
+                break;
+        }
+    }
+
+
+    //buscar um usuario atraves de seu numero de id e lista seu tipo de autorizacao se encontrado
+    public void buscaAutorizacaoUsuario(ArrayList<Usuario> usuarios){
+        Scanner in = new Scanner(System.in);
+        
+        System.out.println("Digite o id do usuario");
+        int id_usuario = in.nextInt();
+        
+        for(Usuario u: usuarios){
+            if(id_usuario == u.getId()){
+                System.out.println("O usuario possui autorizacao do tipo: " + u.getTipo());
+            }
+        }
+    }
+
+    //lista todos os usuarios cadastrados a partir de um tipo de usuario selecionado
+    public void listaUsuarioByAutorizacao(ArrayList<Usuario> usuarios){
+        Scanner in = new Scanner(System.in);
+        
+        System.out.println("Selecione o tipo de autorizacao");
+        System.out.println("[0] Sair");
+        System.out.println("[1] Paciente");
+        System.out.println("[2] Medico");
+        System.out.println("[3] Administrador");
+        int opcao = in.nextInt();
+        in.nextLine();
+        tipoUsuario tipoAutorizacao = null;
+
+        switch(opcao){
+            case 0:
+                break;
+            case 1:
+                tipoAutorizacao = tipoUsuario.PACIENTE;
+                break;
+            case 2:
+                tipoAutorizacao = tipoUsuario.MEDICO;
+                break;
+            case 3:
+                tipoAutorizacao = tipoUsuario.ADMINISTRADOR;
+                break;
+            default:
+                System.out.println("Opcao invalida");
+                break;
+        }
+        
+        for(Usuario u: usuarios){
+            if(tipoAutorizacao == u.getTipo()){
+                System.out.println(u.getNome() + ", ID: " + u.getId() + ", tipo: " + u.getTipo());
+            }
+        }
+    
+    }
+
+
+    public void marcarExame(CatalogoAutorizacoes cat, Scanner in) {
+
+        System.out.println("Codigo do exame:");
+        int codigo = in.nextInt();
+
+        System.out.println("Data (yyyy-mm-dd):");
+        String data = in.next();
+
+        cat.marcarExame(codigo, LocalDate.parse(data));
+
+    }
+
+    public void listarExamesPaciente(CatalogoAutorizacoes cat, Scanner in) {
+
+        in.nextLine();
+        System.out.println("Nome do paciente:");
+        String nome = in.nextLine();
+
+        for (AutorizacaoExame a : cat.getListaAutorizacoes()) {
+            if (a.getPaciente().getNome().equalsIgnoreCase(nome)) {
+                System.out.println(a);
+            }
+        }
+    }
+
+}
     public void menuAdministrador(CatalogoUsuarios catalogoUsuarios,
                                   CatalogoAutorizacoes catalogoAutorizacoes) {
 
