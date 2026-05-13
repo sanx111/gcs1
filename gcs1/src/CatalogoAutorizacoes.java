@@ -65,27 +65,19 @@ public class CatalogoAutorizacoes {
         }
         return resultado;
     }
-    public List<AutorizacaoExame> listarPorExame(Exame exame) {
-        List<AutorizacaoExame> resultado = new ArrayList<>();
-        for (AutorizacaoExame a : autorizacoes) {
-            if (a.getExame() == exame) {
-                resultado.add(a);
+
+            public ArrayList<AutorizacaoExame> listarExamesDoPaciente(Paciente paciente) {
+        ArrayList<AutorizacaoExame> resultado = new ArrayList<>();
+
+        for (AutorizacaoExame exame : autorizacoes) {
+            if (exame.getPaciente().equals(paciente)) {
+                resultado.add(exame);
             }
         }
+
         return resultado;
-
-        }
-            public boolean marcarExameComoRealizado(int codigo){
-        for(AutorizacaoExame exame: listaAutorizacoes){
-            if(exame.getCodigo()==codigo){
-                exame.marcaComoRealizado();
-                return true;
-            }
-        }
-
-        return false;
-
     }
+
     
 }
 

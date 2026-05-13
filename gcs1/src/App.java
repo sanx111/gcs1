@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class App {
 
     public void executar() {
@@ -8,13 +11,16 @@ public class App {
         CatalogoUsuarios catalogoUsuarios = new CatalogoUsuarios();
         CatalogoAutorizacoes catalogoAutorizacoes = new CatalogoAutorizacoes();
         Scanner in = new Scanner(System.in);
+        CatalogoAutorizacoes cat = new CatalogoAutorizacoes();
 
         do {
             System.out.println("=== MENU ===");
             System.out.println("[0] Sair");
             System.out.println("[1] Cadastrar usuario");
             System.out.println("[2] Listar usuarios");
-            System.out.println("[3] Menu do administrador");
+            System.out.println("[3] marcar Exame como realizado");
+            System.out.println("[4] listar exames do paciente");
+            System.out.println("[5] Menu do administrador");
             System.out.print("Opcao: ");
 
             opcao = in.nextInt();
@@ -29,8 +35,15 @@ public class App {
                     listarUsuarios(catalogoUsuarios);
                     break;
                 case 3:
-                    menuAdministrador(catalogoUsuarios, catalogoAutorizacoes);
+                    listarExamesPaciente(cat, in);
                     break;
+                        
+                case 4:
+                    marcarExame(cat, in);
+                    break;
+                case 5:
+                        menuAdministrador(catalogoUsuarios, catalogoAutorizacoes);
+                        break;
                 default:
                     System.out.println("Opcao invalida");
                     break;
@@ -105,6 +118,32 @@ public class App {
         }
     }
 
+    public void marcarExame(CatalogoAutorizacoes cat, Scanner in) {
+
+        System.out.println("Codigo do exame:");
+        int codigo = in.nextInt();
+
+        System.out.println("Data (yyyy-mm-dd):");
+        String data = in.next();
+
+        cat.marcarExame(codigo, LocalDate.parse(data));
+
+    }
+
+    public void listarExamesPaciente(CatalogoAutorizacoes cat, Scanner in) {
+
+        in.nextLine();
+        System.out.println("Nome do paciente:");
+        String nome = in.nextLine();
+
+        for (AutorizacaoExame a : cat.getListaAutorizacoes()) {
+            if (a.getPaciente().getNome().equalsIgnoreCase(nome)) {
+                System.out.println(a);
+            }
+        }
+    }
+
+}
     public void menuAdministrador(CatalogoUsuarios catalogoUsuarios,
                                   CatalogoAutorizacoes catalogoAutorizacoes) {
 
