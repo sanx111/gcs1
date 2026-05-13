@@ -17,10 +17,11 @@ public class App {
             System.out.println("=== MENU ===");
             System.out.println("[0] Sair");
             System.out.println("[1] Cadastrar usuario");
-            System.out.println("[2] Listar usuarios");
+            System.out.println("[2] Listar usuarios");           
             System.out.println("[3] marcar Exame como realizado");
             System.out.println("[4] listar exames do paciente");
             System.out.println("[5] Menu do administrador");
+           System.out.println("[6] Autorizao de usuarios");
             System.out.print("Opcao: ");
 
             opcao = in.nextInt();
@@ -37,13 +38,16 @@ public class App {
                 case 3:
                     listarExamesPaciente(cat, in);
                     break;
-                        
                 case 4:
                     marcarExame(cat, in);
                     break;
                 case 5:
                         menuAdministrador(catalogoUsuarios, catalogoAutorizacoes);
                         break;
+                case 6:
+                    menu_AutorizacaoUsuario(usuarios);
+                    break;
+                        
                 default:
                     System.out.println("Opcao invalida");
                     break;
@@ -117,6 +121,87 @@ public class App {
             }
         }
     }
+
+
+    public void menu_AutorizacaoUsuario(ArrayList<Usuario> usuarios){
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Selecione o tipo de consulta:");
+        System.out.println("[0] Sair");
+        System.out.println("[1] Busca o tipo de autorizacao de um usuario especifico");
+        System.out.println("[2] Lista todos os usuarios com o mesmo tipo de autorizacao");
+
+        int opcao = in.nextInt();
+        in.nextLine();
+
+        switch (opcao) {
+            case 0:
+                break;
+            case 1:
+                buscaAutorizacaoUsuario(usuarios);
+                break;
+            case 2:
+                listaUsuarioByAutorizacao(usuarios);
+                break;
+            default:
+                System.out.println("Entrada invalida");
+                break;
+        }
+    }
+
+
+    //buscar um usuario atraves de seu numero de id e lista seu tipo de autorizacao se encontrado
+    public void buscaAutorizacaoUsuario(ArrayList<Usuario> usuarios){
+        Scanner in = new Scanner(System.in);
+        
+        System.out.println("Digite o id do usuario");
+        int id_usuario = in.nextInt();
+        
+        for(Usuario u: usuarios){
+            if(id_usuario == u.getId()){
+                System.out.println("O usuario possui autorizacao do tipo: " + u.getTipo());
+            }
+        }
+    }
+
+    //lista todos os usuarios cadastrados a partir de um tipo de usuario selecionado
+    public void listaUsuarioByAutorizacao(ArrayList<Usuario> usuarios){
+        Scanner in = new Scanner(System.in);
+        
+        System.out.println("Selecione o tipo de autorizacao");
+        System.out.println("[0] Sair");
+        System.out.println("[1] Paciente");
+        System.out.println("[2] Medico");
+        System.out.println("[3] Administrador");
+        int opcao = in.nextInt();
+        in.nextLine();
+        tipoUsuario tipoAutorizacao = null;
+
+        switch(opcao){
+            case 0:
+                break;
+            case 1:
+                tipoAutorizacao = tipoUsuario.PACIENTE;
+                break;
+            case 2:
+                tipoAutorizacao = tipoUsuario.MEDICO;
+                break;
+            case 3:
+                tipoAutorizacao = tipoUsuario.ADMINISTRADOR;
+                break;
+            default:
+                System.out.println("Opcao invalida");
+                break;
+        }
+        
+        for(Usuario u: usuarios){
+            if(tipoAutorizacao == u.getTipo()){
+                System.out.println(u.getNome() + ", ID: " + u.getId() + ", tipo: " + u.getTipo());
+            }
+        }
+    
+    }
+
 
     public void marcarExame(CatalogoAutorizacoes cat, Scanner in) {
 
